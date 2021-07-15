@@ -157,8 +157,6 @@ class TinyEarn():
                     stats_list['Period Ending'] = pd.to_datetime(col[1].get_text()) # Period Ending
                     stats_list['Estimated_EPS'] = self.__clean_vals(col[2].get_text()) # Estimated EPS
                     stats_list['Reported_EPS'] = self.__clean_vals(col[3].get_text()) # Reported EPS
-                    stats_list['Surprise_EPS'] = self.__clean_vals(col[4].get_text()) # Surprise
-                    stats_list['Surprise_%_EPS'] = (self.__clean_vals(col[5].get_text()) / 100) # Surprise %
                     #stats_list['Ticker'] = ticker
                     return_list[date] = stats_list
 
@@ -237,8 +235,6 @@ class TinyEarn():
                     stats_list['Period Ending'] = pd.to_datetime(col[1].get_text()) # Period Ending
                     stats_list['Estimated_Revenue'] = self.__clean_vals(col[2].get_text()) # Estimated EPS
                     stats_list['Reported_Revenue'] = self.__clean_vals(col[3].get_text()) # Reported EPS
-                    stats_list['Surprise_Revenue'] = self.__clean_vals(col[4].get_text()) # Surprise
-                    stats_list['Surprise_%_Revenue'] = (self.__clean_vals(col[5].get_text()) / 100) # Surprise %
                     stats_list['Announcement Time'] = (col[6].get_text()) # Announcement time
                     return_list[date] = stats_list
 
