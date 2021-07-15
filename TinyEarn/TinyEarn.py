@@ -6,7 +6,7 @@ from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
-import os 
+import os
 
 class TinyEarn():
     '''
