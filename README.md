@@ -1,5 +1,16 @@
 # TinyEarn - Webscraper for Zacks.com
 
+## Fork Details
+
+### Refreshed version in 2021
+
+* Fixed problem where the original was using the local Geckodriver version instead of the PATH one
+* Fixed a redirecting path on Zacks.com
+* Removed table columns that can be calculated manually
+* Added the "Announcement Time" column
+
+## Original
+
 TinyEarn is an simple [selenium-based](https://selenium-python.readthedocs.io/) webscaper to pull earnings data from zacks.com. It navigates to zacks.com/stock/research/{TICKER}/earnings-announcements and scrapes the earnings data from the present table and the table on the sales tab.
 
 Requirements:
