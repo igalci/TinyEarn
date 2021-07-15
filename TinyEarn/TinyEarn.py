@@ -13,7 +13,7 @@ class TinyEarn():
     This class scrapes Zacks.com to get earnings data from a companies earnings reports.
     '''
     def __init__(self):
-        pass  #geckodriver_autoinstaller.install()
+        pass #geckodriver_autoinstaller.install()
 
     def get_earnings(self, ticker:str, start, end = datetime.date.today(), pandas = True, delay = 1):
         """Scrapes zacks.com/stock/research/{TICKER}/earnings-announcements to get earnings data.
