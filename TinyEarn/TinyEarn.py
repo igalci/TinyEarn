@@ -1,24 +1,19 @@
 import pandas as pd
 import numpy as np
-import math
 import datetime
 import time
-import requests
-import json
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
 import os
-import geckodriver_autoinstaller
-
 
 class TinyEarn():
     '''
     This class scrapes Zacks.com to get earnings data from a companies earnings reports.
     '''
     def __init__(self):
-        geckodriver_autoinstaller.install()
+        pass #geckodriver_autoinstaller.install()
 
     def get_earnings(self, ticker:str, start, end = datetime.date.today(), pandas = True, delay = 1):
         """Scrapes zacks.com/stock/research/{TICKER}/earnings-announcements to get earnings data.
@@ -70,7 +65,7 @@ class TinyEarn():
         browser = self.__get_browser()
 
         # Open zacks.com
-        url = "https://www.zacks.com/stock/research/" + ticker + "/earnings-announcements"
+        url = "https://www.zacks.com/stock/research/" + ticker + "/earnings-calendar"
         browser.get(url)
 
         # Passess browser into get earnings, returns earnings table
@@ -244,6 +239,7 @@ class TinyEarn():
                     stats_list['Reported_Revenue'] = self.__clean_vals(col[3].get_text()) # Reported EPS
                     stats_list['Surprise_Revenue'] = self.__clean_vals(col[4].get_text()) # Surprise
                     stats_list['Surprise_%_Revenue'] = (self.__clean_vals(col[5].get_text()) / 100) # Surprise %
+                    stats_list['Announcement Time'] = (col[6].get_text()) # Announcement time
                     return_list[date] = stats_list
 
                 stats_list = {}
@@ -272,6 +268,5 @@ class TinyEarn():
         opts = Options()
         path = os.getcwd()
         opts.headless = True
-        browser = Firefox(executable_path=r'{}/geckodriver.exe'.format(path),
-                          options=opts)
+        browser = Firefox(options=opts)
         return browser
