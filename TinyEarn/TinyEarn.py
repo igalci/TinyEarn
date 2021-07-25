@@ -100,7 +100,10 @@ class TinyEarn():
 
         """
         for date in first.keys():
-            first[date].update(second[date])
+            try:
+                first[date].update(second[date])
+            except KeyError:
+                first.pop(date)
         return first
 
     def __clean_vals(self, value:str):
