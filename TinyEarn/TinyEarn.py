@@ -99,11 +99,13 @@ class TinyEarn():
             One dictionary with same keys from each dictionary and the values of each dictionary
 
         """
+        keys = ['Estimated_Revenue', 'Reported_Revenue']
+        emptySecond = dict.fromkeys(keys)
         for date in first.keys():
             try:
                 first[date].update(second[date])
             except KeyError:
-                first.pop(date)
+                first[date].update(emptySecond)
         return first
 
     def __clean_vals(self, value:str):
@@ -112,7 +114,7 @@ class TinyEarn():
         If value is empty according to Zacks.com conventions then we just return a 0.
         """
         if value == '--':
-            return np.nan
+            return None
         else:
             return float(value.replace('$',"").replace('%',"").replace(',',''))
 
@@ -160,6 +162,7 @@ class TinyEarn():
                     stats_list['Period Ending'] = pd.to_datetime(col[1].get_text()) # Period Ending
                     stats_list['Estimated_EPS'] = self.__clean_vals(col[2].get_text()) # Estimated EPS
                     stats_list['Reported_EPS'] = self.__clean_vals(col[3].get_text()) # Reported EPS
+                    stats_list['Announcement Time'] = (col[6].get_text()) # Announcement time
                     #stats_list['Ticker'] = ticker
                     return_list[date] = stats_list
 
@@ -235,10 +238,9 @@ class TinyEarn():
                     break
 
                 elif date < end:
-                    stats_list['Period Ending'] = pd.to_datetime(col[1].get_text()) # Period Ending
+                 #   stats_list['Period Ending'] = pd.to_datetime(col[1].get_text()) # Period Ending
                     stats_list['Estimated_Revenue'] = self.__clean_vals(col[2].get_text()) # Estimated EPS
                     stats_list['Reported_Revenue'] = self.__clean_vals(col[3].get_text()) # Reported EPS
-                    stats_list['Announcement Time'] = (col[6].get_text()) # Announcement time
                     return_list[date] = stats_list
 
                 stats_list = {}
