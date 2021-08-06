@@ -149,8 +149,9 @@ class TinyEarn():
             for row in rows:
 
                 # Pull results from each column
+                colh = row.find_all('th')
                 col = row.find_all('td')
-                date = pd.to_datetime(col[0].get_text())
+                date = pd.to_datetime(colh[0].get_text())
 
                 # If we've reached a row that represents an earnings call that is withing our specified dates of inquiry then clean values and store them in return list
                 # Otherwise skip this row or, if we have eached beyond latest date we want to pull then terminate loop and return results
@@ -159,10 +160,10 @@ class TinyEarn():
                     break
 
                 elif date < end:
-                    stats_list['Period Ending'] = pd.to_datetime(col[1].get_text()) # Period Ending
-                    stats_list['Estimated_EPS'] = self.__clean_vals(col[2].get_text()) # Estimated EPS
-                    stats_list['Reported_EPS'] = self.__clean_vals(col[3].get_text()) # Reported EPS
-                    stats_list['Announcement Time'] = (col[6].get_text()) # Announcement time
+                    stats_list['Period Ending'] = pd.to_datetime(col[0].get_text()) # Period Ending
+                    stats_list['Estimated_EPS'] = self.__clean_vals(col[1].get_text()) # Estimated EPS
+                    stats_list['Reported_EPS'] = self.__clean_vals(col[2].get_text()) # Reported EPS
+                    stats_list['Announcement Time'] = (col[5].get_text()) # Announcement time
                     #stats_list['Ticker'] = ticker
                     return_list[date] = stats_list
 
@@ -228,8 +229,9 @@ class TinyEarn():
             # done represents whether we have reached the date in earnings report that we want to stop scraping
             for row in rows:
                 # Pull results from each column
+                colh = row.find_all('th')
                 col = row.find_all('td')
-                date = pd.to_datetime(col[0].get_text())
+                date = pd.to_datetime(colh[0].get_text())
 
                 # If we've reached a row that represents an earnings call that is withing our specified dates of inquiry then clean values and store them in return list
                 # Otherwise skip this row or, if we have eached beyond latest date we want to pull then terminate loop and return results
@@ -239,8 +241,8 @@ class TinyEarn():
 
                 elif date < end:
                  #   stats_list['Period Ending'] = pd.to_datetime(col[1].get_text()) # Period Ending
-                    stats_list['Estimated_Revenue'] = self.__clean_vals(col[2].get_text()) # Estimated EPS
-                    stats_list['Reported_Revenue'] = self.__clean_vals(col[3].get_text()) # Reported EPS
+                    stats_list['Estimated_Revenue'] = self.__clean_vals(col[1].get_text()) # Estimated EPS
+                    stats_list['Reported_Revenue'] = self.__clean_vals(col[2].get_text()) # Reported EPS
                     return_list[date] = stats_list
 
                 stats_list = {}
