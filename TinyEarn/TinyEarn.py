@@ -3,6 +3,7 @@ import numpy as np
 import datetime
 import time
 from selenium.webdriver import Firefox
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
@@ -166,11 +167,18 @@ class TinyEarn():
                     stats_list['Announcement Time'] = (col[5].get_text()) # Announcement time
                     #stats_list['Ticker'] = ticker
                     return_list[date] = stats_list
-
+                
                 stats_list = {}
 
             # Find next page button
-            next_btn = browser.find_element_by_xpath('//*[@id="earnings_announcements_earnings_table_next"]')
+            try:
+                next_btn = browser.find_element_by_xpath('//*[@id="earnings_announcements_earnings_table_next"]')
+            except NoSuchElementException:
+                break
+
+            if 'disabled' in next_btn.get_attribute('class').split():
+                break
+
             location = next_btn.location
 
             # Scroll next page button into view
@@ -248,7 +256,14 @@ class TinyEarn():
                 stats_list = {}
 
             # Find next page button
-            next_btn = browser.find_element_by_xpath('//*[@id="earnings_announcements_sales_table_next"]')
+            try:
+                next_btn = browser.find_element_by_xpath('//*[@id="earnings_announcements_sales_table_next"]')
+            except NoSuchElementException:
+                break
+
+            if 'disabled' in next_btn.get_attribute('class').split():
+                break
+
             location = next_btn.location
 
             # Scroll next button into view
