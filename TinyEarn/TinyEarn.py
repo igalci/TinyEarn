@@ -69,14 +69,15 @@ class TinyEarn():
         url = "https://www.zacks.com/stock/research/" + ticker + "/earnings-calendar"
         browser.get(url)
 
-        # Passess browser into get earnings, returns earnings table
-        eps = self.__get_eps(browser, start,end,url,delay)
+        try:
+            # Passess browser into get earnings, returns earnings table
+            eps = self.__get_eps(browser, start,end,url,delay)
 
-        # passess same browser into get_revenue, returns revenue table
-        revenue = self.__get_revenue(browser, start,end,url,delay)
-
-        # Close browser and process results for output
-        browser.close()
+            # passess same browser into get_revenue, returns revenue table
+            revenue = self.__get_revenue(browser, start,end,url,delay)
+        finally:
+            # Close browser and process results for output
+            browser.close()
 
         # Run sequence to merge those eps and revenue dictionaries by earnings report
         results = self.__merge_dicts(eps,revenue)
