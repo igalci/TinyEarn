@@ -7,7 +7,7 @@
 * Fixed problem where the original was using the local Geckodriver version instead of the PATH one
 * Fixed a redirecting path on Zacks.com
 * Removed table columns that can be calculated manually
-* Added the "Announcement Time" column
+* Added the "Announcement Time" column 
 
 ## Original
 
