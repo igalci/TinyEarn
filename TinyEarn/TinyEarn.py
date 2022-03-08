@@ -287,5 +287,8 @@ class TinyEarn():
         opts = Options()
         path = os.getcwd()
         opts.headless = True
+        # from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+        # binary = FirefoxBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe")
+        # browser = Firefox(options=opts,firefox_binary=binary)
         browser = Firefox(options=opts)
         return browser
